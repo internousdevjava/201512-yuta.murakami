@@ -19,7 +19,14 @@ public class KisoKadai1 {
 				BufferedReader xbr = new BufferedReader(new InputStreamReader(System.in));
 				String xnumb = xbr.readLine();
 				int xnum = Integer.parseInt(xnumb);
-				calculate.setY(xnum);
+				xlimit(xnum);
+				boolean xcheck = xlimit(xnum);
+				if (xcheck) {
+				} else {
+					System.out.println("桁が大きすぎます。");
+					continue;
+				}
+				calculate.setX(xnum);
 				break;
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -37,6 +44,13 @@ public class KisoKadai1 {
 				BufferedReader ybr = new BufferedReader(new InputStreamReader(System.in));
 				String ynumb = ybr.readLine();
 				int ynum = Integer.parseInt(ynumb);
+				ylimit(ynum);
+				boolean ycheck = ylimit(ynum);
+				if (ycheck) {
+				} else {
+					System.out.println("桁が大きすぎます。");
+					continue;
+				}
 				calculate.setY(ynum);
 				break;
 			} catch (IOException e) {
@@ -48,7 +62,24 @@ public class KisoKadai1 {
 		}
 
 		calculate.result();
+		System.out.println("出来上がり。");
 
+	}
+
+	private static boolean xlimit(int xnum) {
+		if (xnum <= 100) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private static boolean ylimit(int ynum) {
+		if (ynum <= 100) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
 
