@@ -31,7 +31,7 @@ public class KisoKadai1 {
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (NumberFormatException e) {
-				System.out.println("数字を入れてね。");
+				System.out.println("整数の数字を入れてね。");
 				continue;
 			}
 		}
@@ -56,7 +56,7 @@ public class KisoKadai1 {
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (NumberFormatException e) {
-				System.out.println("数字を入れてね。");
+				System.out.println("整数の数字を入れてね。");
 				continue;
 			}
 		}

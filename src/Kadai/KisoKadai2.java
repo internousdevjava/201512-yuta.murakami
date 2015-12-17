@@ -37,7 +37,7 @@ public class KisoKadai2 {
 					}
 				} catch (IOException e) {
 					System.out.println(e);
-					System.out.println("もう一度やってみてね。");
+					System.out.println("もう一度入力してみてください。");
 					continue;
 				}catch (NumberFormatException e) {
 					System.out.println("整数の数字を入れてね。");
