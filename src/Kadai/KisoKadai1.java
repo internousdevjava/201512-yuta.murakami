@@ -23,7 +23,7 @@ public class KisoKadai1 {
 				boolean xcheck = xlimit(xnum);
 				if (xcheck) {
 				} else {
-					System.out.println("桁が大きすぎます。");
+					System.out.println("指定範囲外の数字です。");
 					continue;
 				}
 				calculate.setX(xnum);
@@ -31,7 +31,7 @@ public class KisoKadai1 {
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (NumberFormatException e) {
-				System.out.println("整数の数字を入れてね。");
+				System.out.println("1～100の整数の数字を入れてください。");
 				continue;
 			}
 		}
@@ -48,7 +48,7 @@ public class KisoKadai1 {
 				boolean ycheck = ylimit(ynum);
 				if (ycheck) {
 				} else {
-					System.out.println("桁が大きすぎます。");
+					System.out.println("指定範囲外の数字です。");
 					continue;
 				}
 				calculate.setY(ynum);
@@ -56,7 +56,7 @@ public class KisoKadai1 {
 			} catch (IOException e) {
 				e.printStackTrace();
 			} catch (NumberFormatException e) {
-				System.out.println("整数の数字を入れてね。");
+				System.out.println("1～100の整数の数字を入れてください。");
 				continue;
 			}
 		}
@@ -67,7 +67,7 @@ public class KisoKadai1 {
 	}
 
 	private static boolean xlimit(int xnum) {
-		if (xnum <= 100) {
+		if (xnum>=1&&xnum <= 100) {
 			return true;
 		} else {
 			return false;
@@ -75,7 +75,7 @@ public class KisoKadai1 {
 	}
 
 	private static boolean ylimit(int ynum) {
-		if (ynum <= 100) {
+		if (ynum>=1&&ynum <= 100) {
 			return true;
 		} else {
 			return false;

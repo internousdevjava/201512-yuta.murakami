@@ -8,9 +8,10 @@ public class KisoKadai2 {
 	public static void main(String[] args) {
 
 		for (;;) {
-			int answer = new java.util.Random().nextInt(100);
+			int answer1 = new java.util.Random().nextInt(99);
+			int answer= answer1+1;
 			while(true){
-				System.out.println("0から100までの整数を入力してください。");
+				System.out.println("1から100までの整数を入力してください。");
 				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 				String num = null;
 				try {
@@ -20,7 +21,7 @@ public class KisoKadai2 {
 					boolean numcheck = numlimit(numli);
 					if (numcheck) {
 					} else {
-						System.out.println("桁が大きすぎます。");
+						System.out.println("範囲外の数字です。");
 						continue;
 					}
 					if (numli == answer) {
@@ -48,7 +49,7 @@ public class KisoKadai2 {
 		}
 	}
 	private static boolean numlimit(int numli) {
-		if (numli <= 100) {
+		if (numli>=1&&numli <= 100) {
 			return true;
 		} else {
 			return false;
