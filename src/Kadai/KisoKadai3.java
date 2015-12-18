@@ -14,7 +14,7 @@ public class KisoKadai3 {
 		System.out.println("開始します");
 		System.out.println("数字を入力して選んでください");
 		System.out.println("新規ファイル←場所指定できません。既存のファイルに追記もしくは上書き←実装できていません。");
-		System.out.println("新規ファイル作成[1],既存のファイルに追記もしくは上書き[2]");
+		System.out.println("新規のファイル作成[1],既存のファイルに追記もしくは上書き[2]");
 
 		int choise = 0;
 		int choise1 = numkeytyping(choise);
