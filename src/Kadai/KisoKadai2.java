@@ -9,8 +9,8 @@ public class KisoKadai2 {
 
 		for (;;) {
 			int answer1 = new java.util.Random().nextInt(99);
-			int answer= answer1+1;
-			while(true){
+			int answer = answer1 + 1;
+			while (true) {
 				System.out.println("1から100までの整数を入力してください。");
 				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 				String num = null;
@@ -40,7 +40,7 @@ public class KisoKadai2 {
 					System.out.println(e);
 					System.out.println("もう一度入力してみてください。");
 					continue;
-				}catch (NumberFormatException e) {
+				} catch (NumberFormatException e) {
 					System.out.println("整数の数字を入れてね。");
 					continue;
 				}
@@ -48,8 +48,9 @@ public class KisoKadai2 {
 
 		}
 	}
+
 	private static boolean numlimit(int numli) {
-		if (numli>=1&&numli <= 100) {
+		if (numli >= 1 && numli <= 100) {
 			return true;
 		} else {
 			return false;
