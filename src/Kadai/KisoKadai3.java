@@ -15,8 +15,6 @@ import java.util.regex.Pattern;
 public class KisoKadai3 {
 
 	public static void main(String[] args) {
-		// 新規ディレクトリ作成メソッドの配置場所確定
-
 
 		for (;;) {
 			System.out.println("現在参照しているフォルダはこちら。");
@@ -25,7 +23,7 @@ public class KisoKadai3 {
 
 			dirLook(dirlook);
 
-			System.out.println("\n\nどの作業を行いますか？番号を入力してください。");
+			System.out.println("\nどの作業を行いますか？番号を入力してください。");
 			System.out.println("[1]このフォルダを使用　[2]指定のフォルダに移動　[99]終了");
 
 			int numint = numberTyping();
@@ -48,38 +46,8 @@ public class KisoKadai3 {
 			} else if (numint == 2) {
 				System.out.println("指定のフォルダに移動します。");
 
-				for (;;) {
-					String placestr = finddir();// ディレクトリを検索
-					File placedir = new File(placestr);
-					System.out.println("このフォルダの内容はこちら↓です。");
-					dirLook(placedir);
-					System.out.println("\n\nどの作業を行いますか？番号を入力してください。");
-					System.out.println("[1]このフォルダを使用　[2]再度フォルダを指定　[99]終了");
+				dirWork();
 
-					int choice = threeChoice();
-					if (choice == 1) {
-						System.out.println("このフォルダを使用します。");
-
-						File usedir=askMkDir(placedir);
-
-						System.out.println("\n\nどの作業を行いますか？番号を入力してください。");
-
-						boolean answer = newOrExisting(usedir);// 新規もしくは既存ファイルを作成し、作業を行った場合、最初まで戻る。
-						if (answer) {
-							break;
-						} else {
-							continue;
-						}
-
-					} else if (choice == 2) {
-						System.out.println("再度フォルダの指定をしてください。");
-						continue;
-					} else if (choice == 99) {
-						System.out.println("終了します。");
-						break;
-					}
-
-				}
 				continue;
 
 			} else if (numint == 99) {
@@ -93,8 +61,50 @@ public class KisoKadai3 {
 		System.out.println("プログラムを終了します。");
 	}
 
+	//指定したディレクトリ内での作業
+	private static void dirWork() {
+		for (;;) {
+			String placestr = finddir();// ディレクトリを検索
+			File placedir = new File(placestr);
+			if(dirLook(placedir)){
+			}else{
+				break;
+			}
+			System.out.println("\nどの作業を行いますか？番号を入力してください。");
+			System.out.println("[1]このフォルダを使用　[2]再度フォルダを指定　[99]最初のメニューに戻る");
+
+			int choice = threeChoice();
+			if (choice == 1) {
+				System.out.println("このフォルダを使用します。");
+
+				File usedir=askMkDir(placedir);
+
+				System.out.println("\nどの作業を行いますか？番号を入力してください。");
+
+				boolean answer = newOrExisting(usedir);// 新規もしくは既存ファイルを作成し、作業を行った場合、最初まで戻る。
+				if (answer) {
+					break;
+				} else {
+					continue;
+				}
+
+			} else if (choice == 2) {
+				System.out.println("再度フォルダの指定をしてください。");
+				continue;
+			} else if (choice == 99) {
+				System.out.println("終了します。");
+				break;
+			}
+
+		}
+	}
+
 	// ディレクトリの確認をするメソッド
-	private static void dirLook(File f) {
+	private static boolean dirLook(File f) {
+		try{
+		String path=f.getAbsolutePath();
+		System.out.println("このフォルダは"+path);
+		System.out.println("---------------------フォルダ内容---------------------");
 		File[] filelist = f.listFiles();
 		for (int i = 0; i < filelist.length; i++) {
 			if (filelist[i].isFile()) {
@@ -103,14 +113,12 @@ public class KisoKadai3 {
 				System.out.println("[フォルダ]" + filelist[i].getName());
 			}
 		}
-
-	}
-
-	// ディレクトリのPathを表示するメソッド
-	private static void filePath(File f) {
-		String path = f.getAbsolutePath();
-		System.out.println("↓このフォルダの現在地はこちらです。↓");
-		System.out.println(path);
+		System.out.println("------------------フォルダ内容ここまで---------------------");
+		return true;
+		}catch(NullPointerException e){
+			System.out.println("フォルダが見つかりません。再度指定してください。");
+			return false;
+		}
 	}
 
 	// ディレクトリ指定の入力仕様に適しているか確認するメソッド「c:\\
@@ -135,7 +143,7 @@ public class KisoKadai3 {
 		}
 	}
 
-	// ファイル指定の入力仕様に適しているか確認するメソッド「c:\\
+	// ファイル指定の入力仕様に適しているか確認するメソッド「.txt」
 	private static String checkTxt() {
 		for (;;) {
 			System.out.println("使用するファイル名を入力してください。");
@@ -217,48 +225,53 @@ public class KisoKadai3 {
 
 	// 新規作成か既存ファイルを編集か
 	private static boolean newOrExisting(File f) {
+		for(;;){
+		System.out.println("このフォルダの内容はこちら↓です。");
+		dirLook(f);
 
-		System.out.println("[1]新規ファイルを作成　[2]既存ファイルを編集　[99]再度フォルダの指定");
+		System.out.println("[1]ここに新規ファイルを作成　[2]既存ファイルを編集　[99]再度フォルダの指定");
 		int choice = threeChoice();
 
 		if (choice == 1) {
 			System.out.println("新規ファイルを作成");
-			File writemode = newFile(f);
-
-			System.out.println("入力可能です。入力してください。");
-			String str = charKeyTyping();
-			fileWrite(writemode, str, false);
-			return true;
+			if(newFile(f)){
+				return true;
+			}else{
+				continue;
+			}
 		} else if (choice == 2) {
 			System.out.println("既存のファイルを編集");
-			File writemode = choiceFile(f);// 既存もしくは使用できない場合に作成した新規ファイルのpathを返す
-			fileLook(writemode);
-			System.out.println("このファイルには追記・上書きのどちらを行いますか？");
-			System.out.println("[1]追記　[2]上書き");
-			boolean truefalse = trueFalse();
-			System.out.println("入力可能です。入力してください。");
-			String str = charKeyTyping();
-			fileWrite(writemode, str, truefalse);
+			choiceFile(f);
 			return true;
 		} else if (choice == 99) {
 			System.out.println("再度フォルダを指定");
-			return true;
+			return false;
 		}
 		return false;
+		}
 	}
 
 	// 既存ファイルを選択するメソッド（retrun File型 該当ファイルのpath）
-	private static File choiceFile(File f) {
+	private static boolean choiceFile(File f) {
 		for (;;) {
 			String filename = checkTxt();
 			File usefile = new File(f + "\\\\" + filename);
 			if (usefile.exists()) {
 				System.out.println("使用するファイルを決定しました。");
 				System.out.println(usefile + "に書き込みます。");
-				return usefile;
+
+				fileLook(usefile);
+				System.out.println("このファイルには追記・上書きのどちらを行いますか？");
+				System.out.println("[1]追記　[2]上書き");
+				boolean truefalse = trueFalse();
+				System.out.println("入力可能です。入力してください。");
+				String str = charKeyTyping();
+				fileWrite(usefile, str, truefalse);
+				return true;
+
 			} else {
 				System.out.println("ファイル名を間違えているかもしれません。新規ファイルを作るか、再度選択をしてください");
-				newOrExisting(f);
+				return false;
 			}
 		}
 	}
@@ -282,19 +295,22 @@ public class KisoKadai3 {
 	}
 
 	// 新規ファイルを作成するメソッド（retrun File型 該当ファイルのpath）
-	private static File newFile(File f) {
+	private static boolean newFile(File f) {
 		for (;;) {
 			String filename = checkTxt();
 			File usefile = new File(f + "\\\\" + filename);
 			try {
 				if (usefile.createNewFile()) {
 					System.out.println(usefile + "は生成されました");
-					return usefile;
+					System.out.println("入力可能です。入力してください。");
+					String str = charKeyTyping();
+					fileWrite(usefile, str, false);
+					return true;
 				} else {
 					System.out.println("ファイルの生成に失敗しました。");
 					System.out.println("ファイルが既に存在するか、ファイルの作成ができない場所である可能性があります。");
 					System.out.println("再度ファイル名を入力してみてください。");
-					continue;
+					return false;
 				}
 			} catch (IOException e) {
 				System.out.println(e);
@@ -333,11 +349,12 @@ public class KisoKadai3 {
 		try {
 			FileReader filereader = new FileReader(f);
 			String name = f.getName();
-			System.out.println(name + "を表示しています");
+			System.out.println("\n\n-----------------------------------"+name + "を表示しています");
 			int ch;
 			while ((ch = filereader.read()) != -1) {
 				System.out.print((char) ch);
 			}
+			System.out.println("-----------------------------------内容は以上です。\n\n");
 			filereader.close();
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
@@ -349,12 +366,12 @@ public class KisoKadai3 {
 	//ディレクトリの作成を確認するメソッド
 	private static File askMkDir(File f) {
 		System.out.println("ここにフォルダを作りますか？");
-		System.out.println("[1]新規フォルダを作成する　[2]その他");
+		System.out.println("[1]作成する　[2]作成しない");
 		int choise=twoChoice();
 		if(choise==1){
-			System.out.println("新規フォルダを作ります。");
-			newDir(f);
-			return f;
+			System.out.println("ここに新規フォルダを作ります。");
+			System.out.println("作成するフォルダ名を入力してください");
+			return newDir(f);
 		}else{
 			return f;
 		}
