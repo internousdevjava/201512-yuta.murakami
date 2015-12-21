@@ -153,7 +153,7 @@ public class KisoKadai3 {
 			Pattern p = Pattern.compile(regex);
 			Matcher m = p.matcher(str);
 			if (m.find()) {
-				System.out.println(str + "を探します。");
+				System.out.println(str + "を確認します。");
 				return str;
 			} else {
 				System.out.println("入力フォーマットに合いません。再度入力してください。");
@@ -302,7 +302,7 @@ public class KisoKadai3 {
 			try {
 				if (usefile.createNewFile()) {
 					System.out.println(usefile + "は生成されました");
-					System.out.println("入力可能です。入力してください。");
+					System.out.println(usefile+"に入力可能です。入力してください。");
 					String str = charKeyTyping();
 					fileWrite(usefile, str, false);
 					return true;
